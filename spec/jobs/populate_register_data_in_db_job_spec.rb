@@ -18,15 +18,15 @@ RSpec.describe PopulateRegisterDataInDbJob, type: :job do
     ObjectsFactory.new.create_register('country', 'beta', 'Ministry of Justice')
     country_data = File.read('./spec/support/country.rsf')
     stub_request(:get, "https://country.beta.openregister.org/download-rsf").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.beta.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin15.6.0 x86_64) ruby/2.4.2p198'}).
+    with(headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.beta.openregister.org' }).
     to_return(status: 200, body: country_data, headers: {})
   end
 
   describe 'populate register data job' do
     it 'populates data' do
-      puts('in here')
-      puts(Spina::Register.count)
+      expect Spina::Register.count.should eq(1)
       PopulateRegisterDataInDbJob.perform_now
+      Record.where(spina_register_id: 1).count.should eq(208)
     end
   end
 end

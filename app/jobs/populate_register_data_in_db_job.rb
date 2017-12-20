@@ -1,10 +1,15 @@
 class PopulateRegisterDataInDbJob < ApplicationJob
   queue_as :default
 
- def initialize
-  @registers_client ||= RegistersClient::RegisterClientManager.new(cache_duration: 600)
- end
- 
+  def initialize
+    @registers_client ||= RegistersClient::RegisterClientManager.new(cache_duration: 600)
+  end
+
+  def bulk_save(entries, records)
+    Entry.import(entries)
+    Record.import(records)
+  end
+
   def populate_register(register)
     register_data = @registers_client.get_register(register.name.parameterize, register.register_phase)
 
@@ -57,11 +62,8 @@ class PopulateRegisterDataInDbJob < ApplicationJob
     bulk_save(entries, records)
   end
 
-  def perform(*args)
-    puts('in job')
-    puts(Spina::Register.all.to_yaml)
+  def perform(*)
     Spina::Register.all.each do |register|
-      puts('IN HERE '+ register.to_yaml)
       populate_register(register)
     end
   end
