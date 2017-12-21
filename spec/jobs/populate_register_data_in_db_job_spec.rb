@@ -17,9 +17,14 @@ RSpec.describe PopulateRegisterDataInDbJob, type: :job do
   before(:each) do
     ObjectsFactory.new.create_register('country', 'beta', 'Ministry of Justice')
     country_data = File.read('./spec/support/country.rsf')
-    stub_request(:get, "https://country.beta.openregister.org/download-rsf").
+    stub_request(:get, "https://country.beta.openregister.org/download-rsf/0").
     with(headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.beta.openregister.org' }).
     to_return(status: 200, body: country_data, headers: {})
+
+    country_update = File.read('./spec/support/country_update.rsf')
+    stub_request(:get, "https://country.beta.openregister.org/download-rsf/207").
+    with(headers: { 'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.beta.openregister.org' }).
+    to_return(status: 200, body: country_update, headers: {})
   end
 
   describe 'populate register data job' do
@@ -27,6 +32,7 @@ RSpec.describe PopulateRegisterDataInDbJob, type: :job do
       expect(Spina::Register.count).to eq(1)
       PopulateRegisterDataInDbJob.perform_now
       expect(Record.where(spina_register_id: Spina::Register.find_by(name: 'country').id).count).to eq(208)
+      PopulateRegisterDataInDbJob.perform_now
     end
   end
 end

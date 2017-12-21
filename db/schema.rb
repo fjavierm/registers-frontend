@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207145923) do
+ActiveRecord::Schema.define(version: 20171221113436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20171207145923) do
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "entry_number"
+    t.integer "previous_entry_number"
     t.index ["spina_register_id"], name: "index_entry_on_spina_register_id"
   end
 
@@ -39,6 +41,7 @@ ActiveRecord::Schema.define(version: 20171207145923) do
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "entry_number"
     t.index ["spina_register_id"], name: "index_record_on_spina_register_id"
   end
 
