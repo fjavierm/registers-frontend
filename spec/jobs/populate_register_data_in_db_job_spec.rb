@@ -24,9 +24,9 @@ RSpec.describe PopulateRegisterDataInDbJob, type: :job do
 
   describe 'populate register data job' do
     it 'populates data' do
-      expect Spina::Register.count.should eq(1)
+      expect(Spina::Register.count).to eq(1)
       PopulateRegisterDataInDbJob.perform_now
-      Record.where(spina_register_id: 1).count.should eq(208)
+      expect(Record.where(spina_register_id: Spina::Register.find_by(name: 'country').id).count).to eq(208)
     end
   end
 end
