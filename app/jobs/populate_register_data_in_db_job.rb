@@ -2,7 +2,7 @@ class PopulateRegisterDataInDbJob < ApplicationJob
   queue_as :default
 
   def initialize
-    @registers_client ||= RegistersClient::RegisterClientManager.new(cache_duration: 0)
+    @registers_client ||= RegistersClient::RegisterClientManager.new(cache_duration: 60)
   end
 
   def bulk_remove_existing_records(register, entry_type, record_keys)
@@ -18,6 +18,7 @@ class PopulateRegisterDataInDbJob < ApplicationJob
 
   def populate_register(register)
     register_data = @registers_client.get_register(register.name.parameterize, register.register_phase)
+    register_data.refresh_data
 
     populate_data(register, register_data, 'user')
     populate_data(register, register_data, 'system')
