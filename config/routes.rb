@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
   health_check_routes
 
@@ -38,6 +40,8 @@ Rails.application.routes.draw do
   post 'new-register/request-register', to: 'new_register#create'
 
   get 'new-register/thanks', to: 'new_register#thanks'
+
+  mount Resque::Server, at: '/jobs'
 
   mount Spina::Engine => '/'
 

@@ -1,0 +1,1 @@
+PopulateRegisterDataInDbJob.perform_now

@@ -27,5 +27,6 @@ module RegisterStatus
         cups_env.each { |k, v| ENV[k] = v }
       end
     end
+    config.active_job.queue_adapter = :resque
   end
 end

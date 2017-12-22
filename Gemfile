@@ -49,6 +49,9 @@ gem 'govuk_notify_rails'
 # Pagination
 gem 'kaminari'
 
+# Asyncronous jobs
+gem 'resque', '~> 1.27', '>= 1.27.4'
+
 group :development, :test do
   gem 'activerecord-import'
   gem 'govuk-lint', '~> 3.3'
