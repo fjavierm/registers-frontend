@@ -17,9 +17,8 @@ class PopulateRegisterDataInDbJob < ApplicationJob
   end
 
   def populate_register(register)
-    register_data = @registers_client.get_register(register.name.parameterize, register.register_phase)
+    register_data = @registers_client.get_register(register.name.parameterize, register.register_phase.downcase)
     register_data.refresh_data
-
     populate_data(register, register_data, 'user')
     populate_data(register, register_data, 'system')
 
@@ -106,7 +105,13 @@ class PopulateRegisterDataInDbJob < ApplicationJob
 
   def perform(*)
     Spina::Register.all.each do |register|
+      puts "Updating #{register.name} in database"
+      begin
       populate_register(register)
+    rescue => e
+      puts "failed to populate register #{register.name} due to exception #{e}"
+      next
+    end
     end
   end
 end
