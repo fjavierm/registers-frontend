@@ -105,11 +105,11 @@ class PopulateRegisterDataInDbJob < ApplicationJob
 
   def perform(*)
     Spina::Register.all.each do |register|
-      puts "Updating #{register.name} in database"
+      logger.info("Updating #{register.name} in database")
       begin
       populate_register(register)
     rescue => e
-      puts "failed to populate register #{register.name} due to exception #{e}"
+      logger.error("failed to populate register #{register.name} due to exception #{e}")
       next
     end
     end
