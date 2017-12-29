@@ -17,7 +17,7 @@ RSpec.describe RegistersController, type: :controller do
 
     # RSF stubs
     stub_request(:get, 'https://country.beta.openregister.org/download-rsf/0')
-    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
     .to_return(status: 200, body: country_data, headers: {})
 
   stub_request(:get, 'https://charity.beta.openregister.org/download-rsf/0')
