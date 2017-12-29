@@ -11,20 +11,20 @@ RSpec.describe RegistersController, type: :controller do
     register_charity_data = File.read('./spec/support/charity_card_n.rsf')
     register_territory_data = File.read('./spec/support/territory_short.rsf')
 
-    ObjectsFactory.new.create_register('country', 'Backlog', 'Ministry of Justice')
-    ObjectsFactory.new.create_register('charity', 'Backlog', 'Ministry of Justice')
-    ObjectsFactory.new.create_register('territory', 'Backlog', 'Ministry of Justice')
+    ObjectsFactory.new.create_register('country', 'Beta', 'Ministry of Justice')
+    ObjectsFactory.new.create_register('charity', 'Beta', 'Ministry of Justice')
+    ObjectsFactory.new.create_register('territory', 'Beta', 'Ministry of Justice')
 
     # RSF stubs
-    stub_request(:get, 'https://country.backlog.openregister.org/download-rsf/0')
+    stub_request(:get, 'https://country.beta.openregister.org/download-rsf/0')
     .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
     .to_return(status: 200, body: country_data, headers: {})
 
-  stub_request(:get, 'https://charity.backlog.openregister.org/download-rsf/0')
+  stub_request(:get, 'https://charity.beta.openregister.org/download-rsf/0')
     .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
     .to_return(status: 200, body: register_charity_data, headers: {})
 
-  stub_request(:get, 'https://territory.backlog.openregister.org/download-rsf/0')
+  stub_request(:get, 'https://territory.beta.openregister.org/download-rsf/0')
     .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
     .to_return(status: 200, body: register_territory_data, headers: {})
 
@@ -41,16 +41,16 @@ RSpec.describe RegistersController, type: :controller do
     .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
     .to_return(status: 200, body: register_discovery_data, headers: {})
 
-  stub_request(:get, "https://country.backlog.openregister.org/download-rsf/207").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.backlog.openregister.org'}).
+  stub_request(:get, "https://country.beta.openregister.org/download-rsf/207").
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.beta.openregister.org'}).
     to_return(status: 200, body: "", headers: {})
 
-  stub_request(:get, "https://charity.backlog.openregister.org/download-rsf/10").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'charity.backlog.openregister.org'}).
+  stub_request(:get, "https://charity.beta.openregister.org/download-rsf/10").
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'charity.beta.openregister.org'}).
     to_return(status: 200, body: "", headers: {})
 
-  stub_request(:get, "https://territory.backlog.openregister.org/download-rsf/3").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'territory.backlog.openregister.org'}).
+  stub_request(:get, "https://territory.beta.openregister.org/download-rsf/3").
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'territory.beta.openregister.org'}).
     to_return(status: 200, body: "", headers: {})
 
     PopulateRegisterDataInDbJob.perform_now
