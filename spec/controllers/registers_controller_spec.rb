@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RegistersController, type: :controller do
-  before do
+  before(:all) do
     country_data = File.read('./spec/support/country.rsf')
     register_beta_data = File.read('./spec/support/register_beta.rsf')
     register_alpha_data = File.read('./spec/support/register_alpha.rsf')
@@ -57,6 +57,12 @@ RSpec.describe RegistersController, type: :controller do
 
 
   end
+
+  after(:all) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+
 
   describe 'Request: GET #history. Descr: Check register consistency. Params: --. Result: Success' do
     subject { get :history, params: { id: 'country' } }
