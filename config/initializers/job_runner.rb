@@ -1,1 +1,1 @@
-PopulateRegisterDataInDbJob.perform_now
+# PopulateRegisterDataInDbJob.perform_now
