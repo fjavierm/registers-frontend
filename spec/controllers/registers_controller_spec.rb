@@ -15,31 +15,47 @@ RSpec.describe RegistersController, type: :controller do
     ObjectsFactory.new.create_register('charity', 'Backlog', 'Ministry of Justice')
     ObjectsFactory.new.create_register('territory', 'Backlog', 'Ministry of Justice')
 
-    # History stubs
+    # RSF stubs
     stub_request(:get, 'https://country.backlog.openregister.org/download-rsf/0')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
-      .to_return(status: 200, body: country_data, headers: {})
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
+    .to_return(status: 200, body: country_data, headers: {})
 
-    stub_request(:get, 'https://charity.backlog.openregister.org/download-rsf/0')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
-      .to_return(status: 200, body: register_charity_data, headers: {})
+  stub_request(:get, 'https://charity.backlog.openregister.org/download-rsf/0')
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+    .to_return(status: 200, body: register_charity_data, headers: {})
 
-    stub_request(:get, 'https://territory.backlog.openregister.org/download-rsf/0')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
-      .to_return(status: 200, body: register_territory_data, headers: {})
+  stub_request(:get, 'https://territory.backlog.openregister.org/download-rsf/0')
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate' })
+    .to_return(status: 200, body: register_territory_data, headers: {})
 
-    # Index stubs
-    stub_request(:get, 'https://register.beta.openregister.org/download-rsf/0')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
-      .to_return(status: 200, body: register_beta_data, headers: {})
+  # Index stubs
+  stub_request(:get, 'https://register.beta.openregister.org/download-rsf/0')
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
+    .to_return(status: 200, body: register_beta_data, headers: {})
 
-    stub_request(:get, 'https://register.alpha.openregister.org/download-rsf/0')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
-      .to_return(status: 200, body: register_alpha_data, headers: {})
+  stub_request(:get, 'https://register.alpha.openregister.org/download-rsf/0')
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
+    .to_return(status: 200, body: register_alpha_data, headers: {})
 
-    stub_request(:get, 'https://register.discovery.openregister.org/download-rsf/0')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
-      .to_return(status: 200, body: register_discovery_data, headers: {})
+  stub_request(:get, 'https://register.discovery.openregister.org/download-rsf/0')
+    .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate'})
+    .to_return(status: 200, body: register_discovery_data, headers: {})
+
+  stub_request(:get, "https://country.backlog.openregister.org/download-rsf/207").
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.backlog.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin17.2.0 x86_64) ruby/2.4.2p198'}).
+    to_return(status: 200, body: "", headers: {})
+
+  stub_request(:get, "https://charity.backlog.openregister.org/download-rsf/10").
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'charity.backlog.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin17.2.0 x86_64) ruby/2.4.2p198'}).
+    to_return(status: 200, body: "", headers: {})
+
+  stub_request(:get, "https://territory.backlog.openregister.org/download-rsf/3").
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'territory.backlog.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin17.2.0 x86_64) ruby/2.4.2p198'}).
+    to_return(status: 200, body: "", headers: {})
+
+    PopulateRegisterDataInDbJob.perform_now
+
+
   end
 
   describe 'Request: GET #history. Descr: Check register consistency. Params: --. Result: Success' do
