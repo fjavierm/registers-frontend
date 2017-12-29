@@ -51,6 +51,8 @@ gem 'kaminari'
 
 # Asyncronous jobs
 gem 'resque', '~> 1.27', '>= 1.27.4'
+gem 'resque-scheduler', '~> 4.3', '>= 4.3.1'
+gem 'active_scheduler', '~> 0.5.0'
 
 group :development, :test do
   gem 'activerecord-import'
