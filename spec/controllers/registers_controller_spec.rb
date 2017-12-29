@@ -42,15 +42,15 @@ RSpec.describe RegistersController, type: :controller do
     .to_return(status: 200, body: register_discovery_data, headers: {})
 
   stub_request(:get, "https://country.backlog.openregister.org/download-rsf/207").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.backlog.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin17.2.0 x86_64) ruby/2.4.2p198'}).
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.backlog.openregister.org'}).
     to_return(status: 200, body: "", headers: {})
 
   stub_request(:get, "https://charity.backlog.openregister.org/download-rsf/10").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'charity.backlog.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin17.2.0 x86_64) ruby/2.4.2p198'}).
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'charity.backlog.openregister.org'}).
     to_return(status: 200, body: "", headers: {})
 
   stub_request(:get, "https://territory.backlog.openregister.org/download-rsf/3").
-    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'territory.backlog.openregister.org', 'User-Agent'=>'rest-client/2.0.2 (darwin17.2.0 x86_64) ruby/2.4.2p198'}).
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'territory.backlog.openregister.org'}).
     to_return(status: 200, body: "", headers: {})
 
     PopulateRegisterDataInDbJob.perform_now
