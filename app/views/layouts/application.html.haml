@@ -25,12 +25,12 @@
             = link_to "Documentation", "https://registers-docs.cloudapps.digital/", target: :blank, rel: "noopener noreferrer"
 
 - content_for :head do
-  = stylesheet_link_tag 'application'
   = csrf_meta_tags
+  = stylesheet_pack_tag 'application'
+  = javascript_pack_tag 'application'
   = render partial: 'layouts/analytics' if Rails.env.production?
 
 - content_for :body_end do
-  = javascript_include_tag 'application'
   = yield(:javascript)
 
 - content_for :footer_top do

@@ -113,7 +113,6 @@ GEM
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
     cf-app-utils (0.6)
-    cocoon (1.2.11)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -282,6 +281,8 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
+    rack-proxy (0.6.3)
+      rack
     rack-rewrite (1.5.1)
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
@@ -389,8 +390,6 @@ GEM
     turbolinks-source (5.0.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (3.2.0)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
@@ -404,6 +403,10 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    webpacker (3.2.0)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -422,22 +425,18 @@ PLATFORMS
 DEPENDENCIES
   capybara
   cf-app-utils
-  cocoon
   database_cleaner
   factory_bot_rails (~> 4.8, >= 4.8.2)
   faker
   fog-aws
   govuk-lint (~> 3.3)
   govuk_elements_form_builder!
-  govuk_elements_rails
-  govuk_frontend_toolkit
   govuk_notify_rails
   govuk_template
   haml-rails
   health_check (~> 2.7)
   http (= 2.2.1)
   jbuilder (~> 2.5)
-  jquery-rails
   kaminari
   listen (~> 3.0.5)
   pg (~> 0.18)
@@ -448,13 +447,12 @@ DEPENDENCIES
   ransack!
   registers-ruby-client!
   rspec-rails (~> 3.6)
-  sass-rails (~> 5.0)
   spina!
   spring
   spring-watcher-listen (~> 2.0.0)
-  uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   webmock
+  webpacker (~> 3.0)
   zendesk_api
 
 RUBY VERSION

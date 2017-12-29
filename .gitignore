@@ -21,4 +21,6 @@
 *.iml
 
 # ignore outputs from travis
-/vendor
+/vendor/public/packs
+/public/packs-test
+/node_modules

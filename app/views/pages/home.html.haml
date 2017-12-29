@@ -16,11 +16,11 @@
       .hero__body
         %h1.hero__title Build services using accurate data
         .hero__inline-image
-          = image_tag "registers-top-image.png", role: "presentation"
+          %img{src: asset_pack_path("images/registers-top-image.png"), role: "presentation"}
         %p.hero__description
           Registers make sure that services across government are using the approved versions of data.
       .hero__aside-image
-        = image_tag "registers-top-image.png", role: "presentation"
+        %img{src: asset_pack_path("images/registers-top-image.png"), role: "presentation"}
 
 %main.container{role:'main'}
   .grid-row
@@ -87,4 +87,4 @@
               /-
               if you have any questions about GOV.UK Registers.
           .column-one-half
-            = image_tag 'registers-team.png', class: 'content-section__image'
+            %img{src: asset_pack_path("images/registers-team.png"), role: "presentation", class: 'content-section__image'}
