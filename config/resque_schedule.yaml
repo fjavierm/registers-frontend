@@ -1,6 +1,0 @@
-simple_job:
-  every: "5m"
-  queue: "populate_db"
-  class: "PopulateRegisterDataInDbJob"
-  args:
-  description: "It's a simple job."
