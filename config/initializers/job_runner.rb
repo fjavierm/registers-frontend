@@ -1,3 +1,3 @@
-# unless File.basename($0) == 'rake'
-#     PopulateRegisterDataInDbJob.perform_now
-# end
+unless Rails.env.test?
+  PopulateRegisterDataInDbJob.perform_now
+end
