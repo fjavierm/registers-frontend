@@ -41,8 +41,10 @@ GIT
       govuk_frontend_toolkit (>= 6.0.0)
       rails (>= 4.2)
 
-PATH
-  remote: /Users/karlbaker/work/registers-ruby-client
+GIT
+  remote: https://github.com/openregister/registers-ruby-client.git
+  revision: 5b600d95d01469a9d4d27f33a829113b4f56517e
+  tag: v0.7.0
   specs:
     registers-ruby-client (0.7.0)
       mini_cache (~> 1.1.0)
